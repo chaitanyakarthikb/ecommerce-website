@@ -1,21 +1,150 @@
+import { useEffect, useRef, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { useProductContext } from "./context/ProductContext";
+import PageNavigation from "./components/PageNavigation";
+import { Container } from "./styles/Container";
+import { FormatPrice } from "./helpers/FormatPrice";
+import { TbTruckDelivery } from "react-icons/tb";
+import { TbReplace } from "react-icons/tb";
+import { MdSecurity } from "react-icons/md";
+import ToggleQuantity from "./components/ToggleQuantity";
+import { Button } from "./styles/Button";
+
+
 
 const SingleProduct = ()=>{
-  return(
-    <h1>Hello world, this is my Single Product</h1>
-  )
+  const temp = useParams();
+  const {id} = temp;
+  const context = useProductContext();
+  const {getSingleProduct} = context;
+  let {isLoading} = context.state;
+  const [quantity,setQuantity] = useState(0);
+  const [top, setTop] = useState(null);
+  const singleProduct = context?.state?.singleProduct;
+  const {name,company,description,image,price} = singleProduct;
+
+
+
+  
+   useEffect(() => {
+    if(context.state.products && context.state.products.length>0){
+      getSingleProduct(id);
+    }
+  }, [context.state.products,id]);
+
+  const increaseQuantity = ()=>{
+    setQuantity((prev)=>prev+1);
+  }
+  const decreaseQuantity = ()=>{
+    if(quantity === 0)return;
+    setQuantity((prev)=>prev-1);
+  }
+ 
+  
+  
+  return (
+    <Wrapper>
+      {isLoading && <h1>Loading...</h1>}
+      {!isLoading && (
+        <>
+          <PageNavigation setTop={setTop}  className="page--navigation--element" name={name} />
+          <Container className="container">
+            <div  className="grid grid-two-column">
+              <div className="product_images">
+                <img src={image} />
+              </div>
+
+              <div className="product-data">
+                <h2>{name}</h2>
+
+                <p className="product-data-price">
+                  MRP:
+                  <del>
+                    <FormatPrice price={price + 5000} />
+                  </del>
+                </p>
+                <p className="product-data-price product-data-real-price">
+                  Deal of the Day : <FormatPrice price={price} />
+                </p>
+                <p>{description}</p>
+                <div className="product-data-warranty">
+                  <div className="product-warranty-data">
+                    <TbTruckDelivery className="warranty-icon" />
+                    <p>Free Delivery</p>
+                  </div>
+
+                  <div className="product-warranty-data">
+                    <TbReplace className="warranty-icon" />
+                    <p>30 Days Replacement</p>
+                  </div>
+
+                  <div className="product-warranty-data">
+                    <TbTruckDelivery className="warranty-icon" />
+                    <p>Thapa Delivered </p>
+                  </div>
+
+                  <div className="product-warranty-data">
+                    <MdSecurity className="warranty-icon" />
+                    <p>2 Year Warranty </p>
+                  </div>
+                </div>
+                <div className="product-data-info">
+                  <p>
+                    Brand :<span> {company} </span>
+                  </p>
+                </div>
+
+                {quantity === 0 && (
+                  <Button onClick={() => increaseQuantity()}>
+                    Add to Cart{" "}
+                  </Button>
+                )}
+                {quantity > 0 && (
+                  <>
+                    <ToggleQuantity
+                      quantity={quantity}
+                      increaseQuantity={increaseQuantity}
+                      decreaseQuantity={decreaseQuantity}
+                    />
+                    <Button>
+                      <NavLink to={"/cart"}>Add To Cart</NavLink>
+                    </Button>
+                  </>
+                )}
+              </div>
+            </div>
+          </Container>
+        </>
+      )}
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.section`
   .container {
     padding: 9rem 0;
   }
+
+  .product_images {
+    display: flex;
+    align-items: center;
+  }
+
+  .product_images img{
+    width:90%;
+  }
+
   .product-data {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
     gap: 2rem;
+
+    h2{
+     text-transform: capitalize;
+    }
 
     .product-data-warranty {
       width: 100%;
@@ -56,6 +185,7 @@ const Wrapper = styled.section`
 
       span {
         font-weight: bold;
+        text-transform: capitalize;
       }
     }
 
@@ -74,6 +204,12 @@ const Wrapper = styled.section`
     align-items: center;
   }
 
+  .page_loading {
+    font-size: 3.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     padding: 0 2.4rem;
   }
