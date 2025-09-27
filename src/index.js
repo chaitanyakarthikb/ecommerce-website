@@ -4,12 +4,17 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { AppProvider } from "./context/ProductContext";
+import { FilterContextProvider } from "./context/FilterContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-root.render(<AppProvider value={"temporary value that can be accessed from anywhere inside the APP heirarchy"}>
-  <App/>
-</AppProvider>);
+root.render(
+  <AppProvider>
+    <FilterContextProvider>
+      <App />
+    </FilterContextProvider>
+  </AppProvider>
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
