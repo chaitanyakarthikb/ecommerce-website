@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles/Button";
+import { useProductContext } from "../context/ProductContext";
 
 const Wrapper = styled.section`
   padding: 12rem 0;

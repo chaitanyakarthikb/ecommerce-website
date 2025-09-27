@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { AppContext, AppProvider, useAppContext } from "./context/AppContext";
+
+
 
 const Products = () => {
-  const temp = useAppContext();
   return <h1>Hello world, this is my products page</h1>;
 };
 
