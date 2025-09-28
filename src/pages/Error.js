@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from './styles/Button'
+import { Button } from '../styles/Button'
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 

@@ -1,10 +1,9 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import FilterSection from "./components/FilterSection";
-import Sort from "./components/Sort";
-import ProductList from "./components/ProductList";
-import { useProductContext } from "./context/ProductContext";
-import { useFilterContext } from "./context/FilterContext";
+import FilterSection from "../components/FilterSection";
+import Sort from "../components/Sort";
+import ProductList from "../components/ProductList";
+
 
 
 

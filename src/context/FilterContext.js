@@ -9,7 +9,6 @@ const initialState = {
   all_products : [],
   grid_view : true,
 }
-// helo
 export const FilterContextProvider = ({ children }) => {
   const productsContext = useProductContext();
   const {products} = productsContext?.state;

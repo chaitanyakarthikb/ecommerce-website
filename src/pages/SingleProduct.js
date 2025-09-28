@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useProductContext } from "./context/ProductContext";
-import PageNavigation from "./components/PageNavigation";
-import { Container } from "./styles/Container";
-import { FormatPrice } from "./helpers/FormatPrice";
+import { useProductContext } from "../context/ProductContext";
+import PageNavigation from "../components/PageNavigation";
+import { Container } from "../styles/Container";
+import { FormatPrice } from "../helpers/FormatPrice";
 import { TbTruckDelivery } from "react-icons/tb";
 import { TbReplace } from "react-icons/tb";
 import { MdSecurity } from "react-icons/md";
-import ToggleQuantity from "./components/ToggleQuantity";
-import { Button } from "./styles/Button";
+import ToggleQuantity from "../components/ToggleQuantity";
+import { Button } from "../styles/Button";
 
 
 
