@@ -32,7 +32,7 @@ const App = () => {
       shadowSupport: " rgba(0, 0, 0, 0.16) 0px 1px 4px",
     },
     media: {
-      mobile: "768px",
+      mobile: "750px",
       tab: "998px",
     },
   };
