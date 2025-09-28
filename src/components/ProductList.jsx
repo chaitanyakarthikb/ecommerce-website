@@ -13,7 +13,7 @@ const ProductList = ({ products }) => {
   if (grid_view === true) {
     return <GridView products={all_products} />;
   } else {
-    return <ListView />;
+    return <ListView products={all_products} />;
   }
 };
 
