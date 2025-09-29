@@ -8,6 +8,9 @@ export const GlobalStyle = createGlobalStyle`
   box-sizing: border-box;
   font-family: "Work Sans", sans-serif;
 }
+img,figure{
+  user-select: none;
+}
 
 
 html {

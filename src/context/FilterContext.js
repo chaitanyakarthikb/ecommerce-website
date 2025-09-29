@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { useProductContext } from "./ProductContext";
 import FilterReducer from "../reducer/FilterReducer";
-import { SET_FILTER_PRODUCTS, SET_GRID_VIEW } from "./Constants";
+import { SET_FILTER_PRODUCTS, SET_GRID_VIEW, SET_LIST_VIEW, SET_TOGGLE_VIEW, TOGGLE_GRID_VIEW, TOGGLE_LIST_VIEW } from "./Constants";
 
 export const FilterContext = createContext();
 const initialState = {
@@ -20,12 +20,17 @@ export const FilterContextProvider = ({ children }) => {
   },[products]);
 
   const setGridView = ()=>{
-    return dispatch({tyep:SET_GRID_VIEW})
+    return dispatch({type:SET_GRID_VIEW})
   }
+
+  const setListView = ()=>{
+    return dispatch({type:SET_LIST_VIEW})
+  }
+ 
 
 
   return (
-    <FilterContext.Provider value={{...state,setGridView}}>
+    <FilterContext.Provider value={{...state,setGridView,setListView}}>
       {children}
     </FilterContext.Provider>
   );
