@@ -1,7 +1,54 @@
 import React from "react";
+import styled from "styled-components";
+import { IoGrid } from "react-icons/io5";
+import { MdOutlineFormatListBulleted } from "react-icons/md";
+import { useFilterContext } from "../context/FilterContext";
+import { MdOutlineGridView } from "react-icons/md";
 
 const Sort = () => {
-  return <div>Hello world, this is my Sort component</div>;
+  const context = useFilterContext();
+  const { setGridView, setListView, grid_view, filter_products } = context;
+
+  return (
+    <Wrapper>
+      <div className="icons--section">
+        <MdOutlineGridView
+          onClick={() => setGridView()}
+          className={`icon ${grid_view === true ? "active" : ""}`}
+          size={"2.5rem"}
+        />
+        <MdOutlineFormatListBulleted
+          onClick={() => setListView()}
+          className={`icon ${grid_view === false ? "active" : ""}`}
+          size={"2.5rem"}
+        />
+      </div>
+      <div className="total--products">
+        <p>{filter_products.length} Total Products</p>
+      </div>
+      <div className="selection--bar">Selection Bar</div>
+    </Wrapper>
+  );
 };
+
+const Wrapper = styled.section`
+  display: flex;
+  padding: 1rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  .icons--section .icon {
+    cursor: pointer;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  .active {
+    color: white;
+    background: black;
+  }
+  .total--products,
+  .selection--bar {
+    user-select: none;
+  }
+`;
 
 export default Sort;
