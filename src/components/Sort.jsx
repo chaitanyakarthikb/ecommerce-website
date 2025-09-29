@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { IoGrid } from "react-icons/io5";
 import { MdOutlineFormatListBulleted } from "react-icons/md";
@@ -7,7 +7,23 @@ import { MdOutlineGridView } from "react-icons/md";
 
 const Sort = () => {
   const context = useFilterContext();
-  const { setGridView, setListView, grid_view, filter_products } = context;
+  const {
+    setGridView,
+    setListView,
+    grid_view,
+    filter_products,
+    getSortingValue,
+    sorting_value,
+    sortProducts,
+  } = context;
+
+  const handleChange = (e) => {
+    getSortingValue(e.target.value);
+  };
+
+  useEffect(() => {
+    sortProducts();
+  }, [sorting_value]);
 
   return (
     <Wrapper>
@@ -26,7 +42,17 @@ const Sort = () => {
       <div className="total--products">
         <p>{filter_products.length} Total Products</p>
       </div>
-      <div className="selection--bar">Selection Bar</div>
+      <div className="selection--bar">
+        <form action="#">
+          <label></label>
+          <select onChange={(e) => handleChange(e)}>
+            <option value={"lowest"}>Price (lowest)</option>
+            <option value={"highest"}>Price (highest)</option>
+            <option value={"a-z"}>Price (a-z)</option>
+            <option value={"z-a"}>Price (z-a)</option>
+          </select>
+        </form>
+      </div>
     </Wrapper>
   );
 };

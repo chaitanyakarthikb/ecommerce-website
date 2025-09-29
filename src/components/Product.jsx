@@ -4,7 +4,6 @@ import { FormatPrice } from "../helpers/FormatPrice";
 
 const Product = (currElem) => {
   const product = currElem.product;
-  console.log("🚀 ~ Product ~ product:", product);
 
   const { id, name, image, price, category } = product;
 
