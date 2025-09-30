@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { useProductContext } from "./ProductContext";
 import FilterReducer from "../reducer/FilterReducer";
-import { GET_SORTING_VALUE, SET_FILTER_PRODUCTS, SET_GRID_VIEW, SET_LIST_VIEW, SET_TOGGLE_VIEW, SORT_PRODUCTS, TOGGLE_GRID_VIEW, TOGGLE_LIST_VIEW } from "./Constants";
+import { GET_SORTING_VALUE, SET_FILTER_PRODUCTS, SET_GRID_VIEW, SET_LIST_VIEW, SET_SORTING_VALUE, SET_TOGGLE_VIEW, SORT_PRODUCTS, TOGGLE_GRID_VIEW, TOGGLE_LIST_VIEW } from "./Constants";
 
 export const FilterContext = createContext();
 const initialState = {
@@ -13,12 +13,13 @@ const initialState = {
 export const FilterContextProvider = ({ children }) => {
   const productsContext = useProductContext();
   const {products} = productsContext?.state;
-  
+
+
   const [state,dispatch] = useReducer(FilterReducer,initialState);
 
   useEffect(()=>{
-    dispatch({type:SET_FILTER_PRODUCTS,payload:products});
-  },[products]);
+    sortProducts();
+  },[state.sorting_value,products])
 
   const setGridView = ()=>{
     return dispatch({type:SET_GRID_VIEW})
@@ -29,7 +30,7 @@ export const FilterContextProvider = ({ children }) => {
   }
 
   const getSortingValue = (query)=>{
-    return dispatch({type:GET_SORTING_VALUE,payload:query})
+    return dispatch({type:SET_SORTING_VALUE,payload:query})
   }
   const sortProducts = ()=>{
     return dispatch({type:SORT_PRODUCTS,payload:products})
