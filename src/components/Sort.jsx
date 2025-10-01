@@ -12,18 +12,12 @@ const Sort = () => {
     setListView,
     grid_view,
     filter_products,
-    getSortingValue,
-    sorting_value,
-    sortProducts,
+    setSortingValue,
   } = context;
 
   const handleChange = (e) => {
-    getSortingValue(e.target.value);
+    setSortingValue(e.target.value);
   };
-
-  useEffect(() => {
-    sortProducts();
-  }, [sorting_value]);
 
   return (
     <Wrapper>
@@ -40,7 +34,7 @@ const Sort = () => {
         />
       </div>
       <div className="total--products">
-        <p>{filter_products.length} Total Products</p>
+        <p>{filter_products?.length} Total Products</p>
       </div>
       <div className="selection--bar">
         <form action="#">
@@ -48,8 +42,8 @@ const Sort = () => {
           <select onChange={(e) => handleChange(e)}>
             <option value={"lowest"}>Price (lowest)</option>
             <option value={"highest"}>Price (highest)</option>
-            <option value={"a-z"}>Price (a-z)</option>
-            <option value={"z-a"}>Price (z-a)</option>
+            <option value={"a-z"}>Alphabetically (a-z)</option>
+            <option value={"z-a"}>Alphabetically (z-a)</option>
           </select>
         </form>
       </div>

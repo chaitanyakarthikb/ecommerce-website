@@ -1,25 +1,41 @@
 import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { useProductContext } from "./ProductContext";
 import FilterReducer from "../reducer/FilterReducer";
-import { GET_SORTING_VALUE, SET_FILTER_PRODUCTS, SET_GRID_VIEW, SET_LIST_VIEW, SET_SORTING_VALUE, SET_TOGGLE_VIEW, SORT_PRODUCTS, TOGGLE_GRID_VIEW, TOGGLE_LIST_VIEW } from "./Constants";
+import { FILTER_PRODUCTS, GET_SORTING_VALUE, LOAD_PRODUCTS, SET_FILTER_PRODUCTS, SET_FILTER_TEXT, SET_GRID_VIEW, SET_LIST_VIEW, SET_SORTING_VALUE, SET_TOGGLE_VIEW, SORT_PRODUCTS, TOGGLE_GRID_VIEW, TOGGLE_LIST_VIEW } from "./Constants";
 
 export const FilterContext = createContext();
 const initialState = {
   filter_products : [],
   all_products : [],
   grid_view : true,
-  sorting_value:"lowest"
+  sorting_value:"lowest",
+  filter:{
+    text:""
+  }
 }
 export const FilterContextProvider = ({ children }) => {
   const productsContext = useProductContext();
   const {products} = productsContext?.state;
-
-
   const [state,dispatch] = useReducer(FilterReducer,initialState);
 
-  useEffect(()=>{
+  const updateFiltersAndSort = ()=>{
+    dispatch({type:FILTER_PRODUCTS});
     sortProducts();
-  },[state.sorting_value,products])
+  }
+
+
+  useEffect(() => {
+    if (products.length > 0) {
+      dispatch({ type: LOAD_PRODUCTS, payload: products });
+    }
+  }, [products]);
+
+
+  useEffect(() => {
+    if (products.length > 0) {
+      updateFiltersAndSort();
+    }
+  }, [state.filter.text, state.sorting_value, products]);
 
   const setGridView = ()=>{
     return dispatch({type:SET_GRID_VIEW})
@@ -29,17 +45,22 @@ export const FilterContextProvider = ({ children }) => {
     return dispatch({type:SET_LIST_VIEW})
   }
 
-  const getSortingValue = (query)=>{
+  const setSortingValue = (query)=>{
     return dispatch({type:SET_SORTING_VALUE,payload:query})
   }
+
+  const setFilterText = (val)=>{
+    return dispatch({type:SET_FILTER_TEXT,payload:val})
+  }
+
   const sortProducts = ()=>{
-    return dispatch({type:SORT_PRODUCTS,payload:products})
+    return dispatch({ type: SORT_PRODUCTS });
   }
  
 
 
   return (
-    <FilterContext.Provider value={{...state,setGridView,setListView,getSortingValue,sortProducts}}>
+    <FilterContext.Provider value={{...state,setGridView,setListView,setSortingValue,setFilterText,sortProducts}}>
       {children}
     </FilterContext.Provider>
   );
