@@ -8,3 +8,6 @@ export const SET_GRID_VIEW = "SET_GRID_VIEW";
 export const SET_LIST_VIEW = "SET_LIST_VIEW";
 export const SORT_PRODUCTS = "SORT_PRODUCTS";
 export const SET_SORTING_VALUE = "SET_SORTING_VALUE";
+export const SET_FILTER_TEXT = "SET_FILTER_TEXT";
+export const FILTER_PRODUCTS = "FILTER_PRODUCTS";
+export const LOAD_PRODUCTS = "LOAD_PRODUCTS";
