@@ -1,28 +1,44 @@
-import { FILTER_PRODUCTS, GET_SORTING_VALUE, LOAD_PRODUCTS, SET_FILTER_PRODUCTS, SET_FILTER_TEXT, SET_GRID_VIEW, SET_LIST_VIEW, SET_SORTING_VALUE, SET_TOGGLE_VIEW, SORT_PRODUCTS, TOGGLE_GRID_VIEW, TOGGLE_LIST_VIEW } from "../context/Constants";
+import {
+  FILTER_CATEGORY,
+  FILTER_PRODUCTS,
+  GET_SORTING_VALUE,
+  LOAD_PRODUCTS,
+  RESET_CATEGORY,
+  SET_CATEGORY,
+  SET_FILTER_PRODUCTS,
+  SET_FILTER_TEXT,
+  SET_GRID_VIEW,
+  SET_LIST_VIEW,
+  SET_SORTING_VALUE,
+  SET_TOGGLE_VIEW,
+  SORT_PRODUCTS,
+  TOGGLE_GRID_VIEW,
+  TOGGLE_LIST_VIEW,
+} from "../context/Constants";
 
-const FilterReducer = (state,action)=>{
-  switch(action.type){
+const FilterReducer = (state, action) => {
+  switch (action.type) {
     case LOAD_PRODUCTS:
       return {
         ...state,
-        filter_products:[...action.payload],
-        all_products:[...action.payload],
-      }
+        filter_products: [...action.payload],
+        all_products: [...action.payload],
+      };
     case SET_GRID_VIEW:
-      return{
+      return {
         ...state,
         grid_view: true,
-      }
+      };
     case SET_LIST_VIEW:
-      return{
+      return {
         ...state,
         grid_view: false,
-      }
+      };
     case SET_SORTING_VALUE:
-      return{
+      return {
         ...state,
-        sorting_value:action.payload,
-      }
+        sorting_value: action.payload,
+      };
     case SORT_PRODUCTS:
       let tempArray = [...state.filter_products];
       let finalArray;
@@ -35,34 +51,59 @@ const FilterReducer = (state,action)=>{
       } else if (state.sorting_value === "z-a") {
         finalArray = tempArray.sort((a, b) => b.name.localeCompare(a.name));
       }
-      console.log("🚀 ~ FilterReducer ~ finalArray:", finalArray)
-      return{
+      return {
         ...state,
-        filter_products:finalArray
-      }
+        filter_products: finalArray,
+      };
     case SET_FILTER_TEXT:
-      return{
+      return {
         ...state,
-        filter:{
+        filter: {
           ...state.filter,
-          text:action.payload
-        }
-      }
+          text: action.payload,
+        },
+      };
     case FILTER_PRODUCTS:
       let filterText = state.filter.text;
       filterText = filterText.toLowerCase();
       let initalProducts = [...state.all_products];
-      let arr = initalProducts.filter((el)=>{
+      let arr = initalProducts.filter((el) => {
         return el.name.toLowerCase().includes(filterText);
-      })
-      return{
+      });
+      return {
         ...state,
-        filter_products:arr,
-      }
-    
+        filter_products: arr,
+      };
+    case SET_CATEGORY:
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          category: action.payload,
+        },
+      };
+    case RESET_CATEGORY:
+      return {
+        ...state,
+        filter: {
+          ...state.filter,
+          category: "",
+        },
+      };
+    case FILTER_CATEGORY:
+      let filtercategory = state.filter.category;
+      filtercategory = filtercategory.toLowerCase();
+      let initialArr = [...state.all_products];
+      let ansArr = initialArr.filter((el) => {
+        return el.category.toLowerCase().includes(filtercategory);
+      });
+
+      return {
+        ...state,
+        filter_products: ansArr,
+      };
   }
   return state;
-  
-}
+};
 
 export default FilterReducer;
