@@ -20,7 +20,6 @@ const PageNavigation = ({ name, setTop }) => {
 
   useEffect(() => {
     if (targetRef) {
-      console.log("🚀 ~ PageNavigation ~ targetRef:", targetRef);
       targetRef.current.scrollIntoView({
         behavior: "smooth",
         block: "nearest",
