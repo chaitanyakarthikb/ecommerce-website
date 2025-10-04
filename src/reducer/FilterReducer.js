@@ -1,4 +1,5 @@
 import {
+  CLEAR_FILTERS,
   FILTER_CATEGORY,
   FILTER_ON_PRICE,
   FILTER_PRODUCTS,
@@ -125,6 +126,19 @@ const FilterReducer = (state, action) => {
         filter: {
           ...state.filter,
           price: action.payload,
+        },
+      };
+    case CLEAR_FILTERS:
+      let arrayOfPrices = state.all_products.map((el)=>el.price);
+      let maxPriceOfAll = Math.max(...arrayOfPrices);
+      return {
+        ...state,
+        filter: {
+          text: "",
+          category: "",
+          minPrice: 0,
+          maxPrice: maxPriceOfAll,
+          price: maxPriceOfAll,
         },
       };
   }

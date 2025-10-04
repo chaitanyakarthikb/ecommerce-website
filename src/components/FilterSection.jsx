@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useFilterContext } from "../context/FilterContext";
 import { FormatPrice } from "../helpers/FormatPrice";
+import { Button } from "../styles/Button";
 
 const getUniqueCategories = (products) => {
   let set = new Set();
@@ -20,6 +21,7 @@ const FilterSection = () => {
     resetCategory,
     filter,
     setPrice,
+    clearFilters,
   } = filterContext;
   let { price, text, category, maxPrice } = filter;
   price = price || 0;
@@ -85,6 +87,12 @@ const FilterSection = () => {
           onChange={(e) => handlePriceChange(e)}
         />
       </div>
+
+      <div className="clear--filters--button">
+        <Button onClick={() => clearFilters()} className="red" type={"danger"}>
+          Clear Filters
+        </Button>
+      </div>
     </Wrapper>
   );
 };
@@ -128,5 +136,12 @@ const Wrapper = styled.section`
 
   .price--filter h3 {
     margin-bottom: 5px;
+  }
+  .clear--filters--button {
+    margin-top: 15px;
+  }
+  .red {
+    background-color: #f79b99;
+    color: rgba(29, 29, 29, 0.8);
   }
 `;

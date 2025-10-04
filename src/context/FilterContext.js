@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useReducer, useState } from "reac
 import { useProductContext } from "./ProductContext";
 import FilterReducer from "../reducer/FilterReducer";
 import {
+  CLEAR_FILTERS,
   FILTER_CATEGORY,
   FILTER_ON_PRICE,
   FILTER_PRODUCTS,
@@ -91,10 +92,14 @@ export const FilterContextProvider = ({ children }) => {
     return dispatch({type:SET_PRICE,payload:val});
   }
 
+  const clearFilters = ()=>{
+    return dispatch({type:CLEAR_FILTERS});
+  }
+
 
 
   return (
-    <FilterContext.Provider value={{...state,setGridView,setListView,setSortingValue,setFilterText,setCategory,resetCategory,setPrice}}>
+    <FilterContext.Provider value={{...state,setGridView,setListView,setSortingValue,setFilterText,setCategory,resetCategory,setPrice,clearFilters}}>
       {children}
     </FilterContext.Provider>
   );

@@ -16,3 +16,4 @@ export const SET_CATEGORY = "SET_CATEGORY";
 export const RESET_CATEGORY = "RESET_CATEGORY";
 export const FILTER_ON_PRICE = "FILTER_ON_PRICE";
 export const SET_PRICE = "SET_PRICE";
+export const CLEAR_FILTERS = "CLEAR_FILTERS";
