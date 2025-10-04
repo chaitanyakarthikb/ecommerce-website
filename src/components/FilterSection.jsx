@@ -42,7 +42,6 @@ const FilterSection = () => {
   };
 
   const handlePriceChange = (e) => {
-    let v = e.target.value;
     setPrice(e.target.value);
   };
 
