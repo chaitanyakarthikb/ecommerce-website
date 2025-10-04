@@ -3,6 +3,7 @@ import { useProductContext } from "./ProductContext";
 import FilterReducer from "../reducer/FilterReducer";
 import {
   FILTER_CATEGORY,
+  FILTER_ON_PRICE,
   FILTER_PRODUCTS,
   GET_SORTING_VALUE,
   LOAD_PRODUCTS,
@@ -12,6 +13,7 @@ import {
   SET_FILTER_TEXT,
   SET_GRID_VIEW,
   SET_LIST_VIEW,
+  SET_PRICE,
   SET_SORTING_VALUE,
   SET_TOGGLE_VIEW,
   SORT_PRODUCTS,
@@ -28,6 +30,9 @@ const initialState = {
   filter:{
     text:"",
     category:"",
+    minPrice:0,
+    maxPrice:0,
+    price:0,
   }
 }
 export const FilterContextProvider = ({ children }) => {
@@ -38,7 +43,10 @@ export const FilterContextProvider = ({ children }) => {
   const updateFiltersAndSort = () => {
     dispatch({ type: FILTER_PRODUCTS });
     dispatch({ type: FILTER_CATEGORY });
-    sortProducts();
+    if (state.filter.price && parseInt(state.filter.price) > 0) {
+      dispatch({ type: FILTER_ON_PRICE });
+    }
+    dispatch({ type: SORT_PRODUCTS })
   };
 
   const setCategory = (category) => {
@@ -57,7 +65,7 @@ export const FilterContextProvider = ({ children }) => {
     if (products.length > 0) {
       updateFiltersAndSort();
     }
-  }, [state.filter.text, state.sorting_value, products, state.filter.category]);
+  }, [products,state.filter]);
 
   const setGridView = ()=>{
     return dispatch({type:SET_GRID_VIEW})
@@ -75,18 +83,18 @@ export const FilterContextProvider = ({ children }) => {
     return dispatch({type:SET_FILTER_TEXT,payload:val})
   }
 
-  const sortProducts = ()=>{
-    return dispatch({ type: SORT_PRODUCTS });
-  }
-
   const resetCategory = ()=>{
     return dispatch({type:RESET_CATEGORY});
   }
- 
+
+  const setPrice = (val)=>{
+    return dispatch({type:SET_PRICE,payload:val});
+  }
+
 
 
   return (
-    <FilterContext.Provider value={{...state,setGridView,setListView,setSortingValue,setFilterText,sortProducts,setCategory,resetCategory}}>
+    <FilterContext.Provider value={{...state,setGridView,setListView,setSortingValue,setFilterText,setCategory,resetCategory,setPrice}}>
       {children}
     </FilterContext.Provider>
   );
