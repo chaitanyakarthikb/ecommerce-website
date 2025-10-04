@@ -1,5 +1,6 @@
 import {
   FILTER_CATEGORY,
+  FILTER_ON_PRICE,
   FILTER_PRODUCTS,
   GET_SORTING_VALUE,
   LOAD_PRODUCTS,
@@ -9,6 +10,7 @@ import {
   SET_FILTER_TEXT,
   SET_GRID_VIEW,
   SET_LIST_VIEW,
+  SET_PRICE,
   SET_SORTING_VALUE,
   SET_TOGGLE_VIEW,
   SORT_PRODUCTS,
@@ -19,10 +21,18 @@ import {
 const FilterReducer = (state, action) => {
   switch (action.type) {
     case LOAD_PRODUCTS:
+      let arr = action.payload.map((el)=>el.price);
+      let max = Math.max(...arr);
+
       return {
         ...state,
         filter_products: [...action.payload],
         all_products: [...action.payload],
+        filter: {
+          ...state.filter,
+          maxPrice:max,
+          price:max,
+        },
       };
     case SET_GRID_VIEW:
       return {
@@ -64,15 +74,33 @@ const FilterReducer = (state, action) => {
         },
       };
     case FILTER_PRODUCTS:
-      let filterText = state.filter.text;
-      filterText = filterText.toLowerCase();
-      let initalProducts = [...state.all_products];
-      let arr = initalProducts.filter((el) => {
-        return el.name.toLowerCase().includes(filterText);
-      });
+      let { text, category, price } = state.filter;
+      let filteredProducts = [...state.all_products];
+      if (text) {
+        let filterText = state.filter.text;
+        filterText = filterText.toLowerCase();
+        filteredProducts = filteredProducts.filter((el) => {
+          return el.name.toLowerCase().includes(filterText);
+        });
+      }
+      if (category) {
+        let filtercategory = state.filter.category;
+        filtercategory = filtercategory.toLowerCase();
+        filteredProducts =  filteredProducts.filter((el) => {
+          return el.category.toLowerCase().includes(filtercategory);
+        });
+      }
+      if (price) {
+        let maxPrice = state.filter.price;
+        maxPrice = parseInt(maxPrice);
+        filteredProducts = filteredProducts.filter((el) => {
+          return el.price / 100 <= maxPrice/100;
+        });
+       
+      }
       return {
         ...state,
-        filter_products: arr,
+        filter_products: filteredProducts,
       };
     case SET_CATEGORY:
       return {
@@ -90,17 +118,14 @@ const FilterReducer = (state, action) => {
           category: "",
         },
       };
-    case FILTER_CATEGORY:
-      let filtercategory = state.filter.category;
-      filtercategory = filtercategory.toLowerCase();
-      let initialArr = [...state.all_products];
-      let ansArr = initialArr.filter((el) => {
-        return el.category.toLowerCase().includes(filtercategory);
-      });
 
+    case SET_PRICE:
       return {
         ...state,
-        filter_products: ansArr,
+        filter: {
+          ...state.filter,
+          price: action.payload,
+        },
       };
   }
   return state;
