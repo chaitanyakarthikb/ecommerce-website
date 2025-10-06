@@ -10,6 +10,7 @@ import { TbReplace } from "react-icons/tb";
 import { MdSecurity } from "react-icons/md";
 import ToggleQuantity from "../components/ToggleQuantity";
 import { Button } from "../styles/Button";
+import { useCartContext } from "../context/CartContext";
 
 
 
@@ -23,9 +24,8 @@ const SingleProduct = ()=>{
   const [top, setTop] = useState(null);
   const singleProduct = context?.state?.singleProduct;
   const {name,company,description,image,price} = singleProduct;
-
-
-
+  const cartContext = useCartContext();
+  const {addToCart} = cartContext;
   
    useEffect(() => {
     if(context.state.products && context.state.products.length>0){
@@ -39,6 +39,9 @@ const SingleProduct = ()=>{
   const decreaseQuantity = ()=>{
     if(quantity === 0)return;
     setQuantity((prev)=>prev-1);
+  }
+  const handleAddToCart = ()=>{
+    addToCart(singleProduct,quantity);
   }
  
   
@@ -107,7 +110,7 @@ const SingleProduct = ()=>{
                       increaseQuantity={increaseQuantity}
                       decreaseQuantity={decreaseQuantity}
                     />
-                    <Button>
+                    <Button onClick={handleAddToCart}>
                       <NavLink to={"/cart"}>Add To Cart</NavLink>
                     </Button>
                   </>
