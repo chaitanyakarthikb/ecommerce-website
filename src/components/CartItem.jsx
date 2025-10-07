@@ -8,7 +8,6 @@ import { useCartContext } from "../context/CartContext";
 const CartItem = ({ item }) => {
   let { name, image, quantity, price } = item;
   let cartContext = useCartContext();
-  console.log("🚀 ~ CartItem ~ cartContext:", cartContext);
   const { toggleQuantity, deleteItem } = cartContext;
   // let ToggleQuantity = () => {};
   const handleToggleQuantity = (id, quantity) => {

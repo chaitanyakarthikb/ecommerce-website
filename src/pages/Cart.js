@@ -2,13 +2,25 @@ import styled from "styled-components";
 import { useCartContext } from "../context/CartContext";
 import CartItem from "../components/CartItem";
 import { Button } from "../styles/Button";
+import { FormatPrice } from "../helpers/FormatPrice";
 
 const Cart = () => {
   const cartContext = useCartContext();
-  let {cart,clearCart} = cartContext;
+  let {cart,clearCart,shipping_fee} = cartContext;
   const handleClearCart = ()=>{
     clearCart();
   }
+  let calculateTotalPrice = (cart)=>{
+    let sum = 0;
+    for(let i = 0;i<cart.length;i++){
+      let quantity = cart[i].quantity;
+      let price = cart[i].price;
+      sum = sum + (quantity * price);
+    }
+    return sum;
+  }
+  let totalPrice = calculateTotalPrice(cart);
+  
   return (
     <Wrapper>
       <div className="container">
@@ -26,13 +38,41 @@ const Cart = () => {
               <CartItem item={el} />
             ))}
           </div>
-          {cart.length === 0 ? <h1 style={{textAlign:"center"}}>No items in the cart</h1>  : <hr/>}
-          
+          {cart.length === 0 ? (
+            <h1 style={{ textAlign: "center" }}>No items in the cart</h1>
+          ) : (
+            <hr />
+          )}
         </div>
         <div className="buttons-list">
           <Button>Continue Shopping</Button>
-          <Button onClick={handleClearCart} className="red">Clear Cart</Button>
+          <Button onClick={handleClearCart} className="red">
+            Clear Cart
+          </Button>
         </div>
+        {cart.length > 0 && (
+          <div className="total-order-amount">
+            <div className="total--item">
+              <p>Subtotal</p>
+              <p>
+                <b>{<FormatPrice price={totalPrice} />}</b>{" "}
+              </p>
+            </div>
+            <div className="total--item">
+              <p>Shipping Fee:</p>
+              <p>
+                <b>{<FormatPrice price={shipping_fee} />}</b>{" "}
+              </p>
+            </div>
+            <hr />
+            <div id="padding-top" className="total--item">
+              <p>Order Total:</p>
+              <p>
+                <b>{<FormatPrice price={totalPrice + shipping_fee} />}</b>{" "}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
     </Wrapper>
   );
@@ -43,6 +83,24 @@ const Wrapper = styled.section`
 
   .grid-four-column {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .total-order-amount {
+    width: 35%;
+    background-color: ${({ theme }) => theme.colors.bg};
+    padding: 3rem 3rem;
+    margin-top: 2rem;
+    margin-left: auto;
+  }
+
+  .total-order-amount .total--item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .total-order-amount #padding-top {
+    padding-top: 5px;
   }
 
   .grid-five-column {
@@ -210,7 +268,16 @@ const Wrapper = styled.section`
     }
     .cart-hide {
       display: none;
-       background-color: yellow;
+      background-color: yellow;
+    }
+
+    .total-order-amount {
+      width: 75%;
+      background-color: ${({ theme }) => theme.colors.bg};
+      padding: 3rem 3rem;
+      margin-top: 5rem;
+      margin-left:auto;
+      margin-right:auto;
     }
 
     .cart-two-button {
