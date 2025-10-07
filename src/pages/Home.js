@@ -14,7 +14,7 @@ const Wrapper = styled.section`
 const Home = () => {
 
   const data = {
-    name : "CK Store"
+    name : "Basva Store"
   }
 
   return (

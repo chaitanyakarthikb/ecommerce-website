@@ -106,7 +106,7 @@ const Footer = () => {
       <footer>
         <div className="container grid grid-four-column">
           <div className="footer-about">
-            <h3>Ck Store</h3>
+            <h3>Basva Store</h3>
             <p>
               Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
               possimus sapiente? Reiciendis odit dolorem commodi at voluptate.
