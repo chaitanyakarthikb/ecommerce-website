@@ -13,6 +13,10 @@ const Wrapper = styled.div`
   .button {
     cursor: pointer;
   }
+  .quantity {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 `;
 
 const ToggleQuantity = ({ quantity, increaseQuantity, decreaseQuantity }) => {
@@ -26,7 +30,7 @@ const ToggleQuantity = ({ quantity, increaseQuantity, decreaseQuantity }) => {
         />
       </div>
       <div>
-        <h3>{quantity}</h3>
+        <h3 className="quantity">{quantity}</h3>
       </div>
 
       <div>

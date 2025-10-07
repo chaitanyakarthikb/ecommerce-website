@@ -1,6 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import CartReducer from "../reducer/CartReducer";
-import { ADD_TO_CART } from "./Constants";
+import { ADD_TO_CART, CLEAR_CART, DELETE_ITEM, SET_TO_CART } from "./Constants";
 
 const CartContext = createContext();
 
@@ -21,8 +21,23 @@ export const CartContextProvider = ({ children }) => {
     }
     return dispatch({type:ADD_TO_CART,payload:payloadObj});
   }
+  const toggleQuantity = (id,quantity)=>{
+    let payloadObj = {
+      id,
+      quantity,
+    }
+    return dispatch({type:SET_TO_CART,payload:payloadObj});
+  }
+
+  const deleteItem = (id)=>{
+    return dispatch({type:DELETE_ITEM,payload:id});
+  }
+
+  const clearCart = ()=>{
+    return dispatch({type:CLEAR_CART})
+  }
   return (
-    <CartContext.Provider value={{...state,addToCart}}>
+    <CartContext.Provider value={{...state,addToCart,toggleQuantity,deleteItem,clearCart}}>
       {children}
     </CartContext.Provider>
   );
