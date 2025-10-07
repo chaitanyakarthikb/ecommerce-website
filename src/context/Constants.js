@@ -18,3 +18,6 @@ export const FILTER_ON_PRICE = "FILTER_ON_PRICE";
 export const SET_PRICE = "SET_PRICE";
 export const CLEAR_FILTERS = "CLEAR_FILTERS";
 export const ADD_TO_CART = "ADD_TO_CART";
+export const SET_TO_CART = "SET_TO_CART";
+export const DELETE_ITEM = "DELETE_ITEM";
+export const CLEAR_CART = "CLEAR_CART";

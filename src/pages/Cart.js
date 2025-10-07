@@ -1,25 +1,41 @@
 import styled from "styled-components";
 import { useCartContext } from "../context/CartContext";
+import CartItem from "../components/CartItem";
+import { Button } from "../styles/Button";
 
 const Cart = () => {
   const cartContext = useCartContext();
-  let {cart} = cartContext;
+  let {cart,clearCart} = cartContext;
+  const handleClearCart = ()=>{
+    clearCart();
+  }
   return (
     <Wrapper>
       <div className="container">
-        <div className="cart-heading grid grid-five-column">
-          <p>Item</p>
-          <p className="cart-hide">Price</p>
-          <p>quantity</p>
-          <p className="cart-hide">Subtotal</p>
-          <p>Remove</p>
+        <div className="items--list">
+          <div className="cart-heading grid grid-five-column">
+            <p>Item</p>
+            <p className="cart-hide">Price</p>
+            <p>quantity</p>
+            <p className="cart-hide">Subtotal</p>
+            <p>Remove</p>
+          </div>
+          <hr />
+          <div>
+            {cart?.map((el) => (
+              <CartItem item={el} />
+            ))}
+          </div>
+          {cart.length === 0 ? <h1 style={{textAlign:"center"}}>No items in the cart</h1>  : <hr/>}
+          
         </div>
-        <hr/>
-
+        <div className="buttons-list">
+          <Button>Continue Shopping</Button>
+          <Button onClick={handleClearCart} className="red">Clear Cart</Button>
+        </div>
       </div>
-
     </Wrapper>
-  )
+  );
 };
 
 const Wrapper = styled.section`
@@ -34,6 +50,10 @@ const Wrapper = styled.section`
     text-align: center;
     align-items: center;
   }
+  .items--list {
+    height: 300px;
+    overflow-y: scroll;
+  }
   .cart-heading {
     text-align: center;
     text-transform: uppercase;
@@ -42,10 +62,12 @@ const Wrapper = styled.section`
     margin-top: 1rem;
   }
   .cart-item {
-    padding: 3.2rem 0;
+    padding: 0 0;
     display: flex;
     flex-direction: column;
     gap: 3.2rem;
+    background-color: green;
+    width: 30%;
   }
 
   .cart-user--profile {
@@ -64,6 +86,19 @@ const Wrapper = styled.section`
       font-size: 2.4rem;
     }
   }
+
+  .red {
+    background-color: red;
+    color: white;
+  }
+
+  .buttons-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
   .cart-user--name {
     text-transform: capitalize;
   }
@@ -164,12 +199,18 @@ const Wrapper = styled.section`
     }
   }
 
+  .margin-top-bottom {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
   @media (max-width: ${({ theme }) => theme.media.mobile}) {
     .grid-five-column {
       grid-template-columns: 1.5fr 1fr 0.5fr;
     }
     .cart-hide {
       display: none;
+       background-color: yellow;
     }
 
     .cart-two-button {

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { FaShoppingCart } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
+import { useCartContext } from "../context/CartContext";
 
 const Nav = styled.nav`
   .navbar-lists {
@@ -165,6 +166,8 @@ const Nav = styled.nav`
 `;
 const Navbar = () => {
   const [active, setActive] = useState(false);
+  let cartContext = useCartContext();
+  let { cart } = cartContext;
   return (
     <Nav>
       <div className={active ? "navbar active" : "navbar"}>
@@ -208,7 +211,7 @@ const Navbar = () => {
           <li>
             <NavLink className="navbar-link cart-trolley--link" to={"/cart"}>
               <FaShoppingCart className="cart-trolley" />
-              <span className="cart-total--item">10</span>
+              <span className="cart-total--item">{cart?.length}</span>
             </NavLink>
           </li>
         </ul>
