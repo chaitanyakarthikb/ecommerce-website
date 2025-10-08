@@ -20,7 +20,7 @@ const CartItem = ({ item }) => {
   return (
     <Wrapper className="grid grid-five-column margin-top-bottom">
       <div className="item-with-image">
-        <img src={image} />
+        <img alt="cart-item" src={image} />
         <p>{name}</p>
       </div>
       <div className="item cart-hide">

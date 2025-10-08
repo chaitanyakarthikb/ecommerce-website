@@ -52,7 +52,7 @@ const CartReducer = (state,action)=>{
     case DELETE_ITEM:
       let itemId = action.payload;
       let existingCart = state.cart;
-      let newCart = existingCart.filter((el)=>el.id!=itemId);
+      let newCart = existingCart.filter((el)=>el.id!==itemId);
       return {
         ...state,
         cart:newCart,
@@ -62,6 +62,8 @@ const CartReducer = (state,action)=>{
         ...state,
         cart:[],
       }
+    default:
+      return state;
   }
 }
 

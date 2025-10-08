@@ -1,4 +1,4 @@
-import { API_ERROR, PRODUCTS_LOADED_SUCCESFULLY, SET_API_ERROR, SET_LOADING, SET_PRODUCTS_DATA, SET_SINGLE_PRODUCT, SET_SINGLE_PRODUCT_LOADING } from "../context/Constants";
+import { SET_API_ERROR, SET_LOADING, SET_PRODUCTS_DATA, SET_SINGLE_PRODUCT, SET_SINGLE_PRODUCT_LOADING } from "../context/Constants";
 
 const productsReducer = (state,action)=>{
 
@@ -35,9 +35,10 @@ const productsReducer = (state,action)=>{
         isSingleProductLoading:!singleProduct,
         singleProduct:singleProduct,
       }
+    default:
+      return state;
       
   }
-  return state;
 }
 
 export default productsReducer;
