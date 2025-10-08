@@ -1,6 +1,6 @@
-import { createContext, useContext, useEffect, useReducer, useState } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
 import reducer from '../reducer/productsReducer';
-import { API_ERROR, PRODUCTS_LOADED_SUCCESFULLY, SET_API_ERROR, SET_LOADING, SET_PRODUCTS_DATA, SET_SINGLE_PRODUCT, SET_SINGLE_PRODUCT_LOADING } from "./Constants";
+import { SET_API_ERROR, SET_LOADING, SET_PRODUCTS_DATA, SET_SINGLE_PRODUCT, SET_SINGLE_PRODUCT_LOADING } from "./Constants";
 export const AppContext = createContext();
 
 const initialState = {

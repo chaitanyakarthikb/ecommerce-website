@@ -1,28 +1,21 @@
 import {
   CLEAR_FILTERS,
-  FILTER_CATEGORY,
-  FILTER_ON_PRICE,
   FILTER_PRODUCTS,
-  GET_SORTING_VALUE,
   LOAD_PRODUCTS,
   RESET_CATEGORY,
   SET_CATEGORY,
-  SET_FILTER_PRODUCTS,
   SET_FILTER_TEXT,
   SET_GRID_VIEW,
   SET_LIST_VIEW,
   SET_PRICE,
   SET_SORTING_VALUE,
-  SET_TOGGLE_VIEW,
   SORT_PRODUCTS,
-  TOGGLE_GRID_VIEW,
-  TOGGLE_LIST_VIEW,
 } from "../context/Constants";
 
 const FilterReducer = (state, action) => {
   switch (action.type) {
     case LOAD_PRODUCTS:
-      let arr = action.payload.map((el)=>el.price);
+      let arr = action.payload.map((el) => el.price);
       let max = Math.max(...arr);
 
       return {
@@ -31,8 +24,8 @@ const FilterReducer = (state, action) => {
         all_products: [...action.payload],
         filter: {
           ...state.filter,
-          maxPrice:max,
-          price:max,
+          maxPrice: max,
+          price: max,
         },
       };
     case SET_GRID_VIEW:
@@ -87,7 +80,7 @@ const FilterReducer = (state, action) => {
       if (category) {
         let filtercategory = state.filter.category;
         filtercategory = filtercategory.toLowerCase();
-        filteredProducts =  filteredProducts.filter((el) => {
+        filteredProducts = filteredProducts.filter((el) => {
           return el.category.toLowerCase().includes(filtercategory);
         });
       }
@@ -95,9 +88,8 @@ const FilterReducer = (state, action) => {
         let maxPrice = state.filter.price;
         maxPrice = parseInt(maxPrice);
         filteredProducts = filteredProducts.filter((el) => {
-          return el.price / 100 <= maxPrice/100;
+          return el.price / 100 <= maxPrice / 100;
         });
-       
       }
       return {
         ...state,
@@ -129,7 +121,7 @@ const FilterReducer = (state, action) => {
         },
       };
     case CLEAR_FILTERS:
-      let arrayOfPrices = state.all_products.map((el)=>el.price);
+      let arrayOfPrices = state.all_products.map((el) => el.price);
       let maxPriceOfAll = Math.max(...arrayOfPrices);
       return {
         ...state,
@@ -141,8 +133,9 @@ const FilterReducer = (state, action) => {
           price: maxPriceOfAll,
         },
       };
+    default:
+      return state;
   }
-  return state;
 };
 
 export default FilterReducer;

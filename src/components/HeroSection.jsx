@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { Button } from "../styles/Button";
-import { useProductContext } from "../context/ProductContext";
 
 const Wrapper = styled.section`
   padding: 12rem 0;
@@ -93,7 +92,7 @@ const HeroSection = ({ myData }) => {
             <figure>
               <img
                 src="/images/hero.jpg"
-                alt="hero-section-image"
+                alt="hero-section"
                 className="img-style"
               />
             </figure>

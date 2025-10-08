@@ -15,7 +15,7 @@ const Wrapper = styled.section`
     font-size: 3.2rem;
   }
 `;
-const PageNavigation = ({ name, setTop }) => {
+const PageNavigation = ({ name }) => {
   const targetRef = useRef(null);
 
   useEffect(() => {

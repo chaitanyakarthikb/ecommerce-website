@@ -6,7 +6,7 @@ import Product from "./Product";
 const FeatureProducts = () => {
   const dataFromTheContext = useProductContext();
   const { state } = dataFromTheContext;
-  const { isError, isLoading, featuredProducts, products } = state;
+  const { isLoading, featuredProducts } = state;
 
   const Wrapper = styled.section`
     padding: 9rem 0;

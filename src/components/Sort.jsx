@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { IoGrid } from "react-icons/io5";
 import { MdOutlineFormatListBulleted } from "react-icons/md";
 import { useFilterContext } from "../context/FilterContext";
 import { MdOutlineGridView } from "react-icons/md";

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useProductContext } from "../context/ProductContext";
@@ -21,7 +21,6 @@ const SingleProduct = ()=>{
   const {getSingleProduct} = context;
   let {isLoading} = context.state;
   const [quantity,setQuantity] = useState(0);
-  const [top, setTop] = useState(null);
   const singleProduct = context?.state?.singleProduct;
   const {name,company,description,image,price} = singleProduct;
   const cartContext = useCartContext();
@@ -31,7 +30,7 @@ const SingleProduct = ()=>{
     if(context.state.products && context.state.products.length>0){
       getSingleProduct(id);
     }
-  }, [context.state.products,id]);
+  }, [context.state.products,id,getSingleProduct]);
 
   const increaseQuantity = ()=>{
     setQuantity((prev)=>prev+1);
@@ -51,11 +50,11 @@ const SingleProduct = ()=>{
       {isLoading && <h1>Loading...</h1>}
       {!isLoading && (
         <>
-          <PageNavigation setTop={setTop}  className="page--navigation--element" name={name} />
+          <PageNavigation  className="page--navigation--element" name={name} />
           <Container className="container">
             <div  className="grid grid-two-column">
               <div className="product_images">
-                <img src={image} />
+                <img alt="product" src={image} />
               </div>
 
               <div className="product-data">
