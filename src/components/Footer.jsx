@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Button } from "../styles/Button";
 import { NavLink } from "react-router-dom";
 import { FaDiscord } from "react-icons/fa";
-import { FaInstagram } from "react-icons/fa6";
 import { IoLogoYoutube } from "react-icons/io";
 import { FaFacebookF } from "react-icons/fa";
 
